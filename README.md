@@ -264,7 +264,50 @@ The Image below shows the access into the ArgoCD's platform.
 
 ![The Image shows the argocd platform ](image/argocd-access-login.png)
 
+ArgoCd has been installed and login successfully, then I have to configure it to deploy a git repository. below are the step to add.
 
+- Click + NEW APP. then fill in the general section
+
+- Application name eg "guestbook or my-guestbook "
+
+- Project name choose default.
+
+- sync policy leave it as "Manual"
+
+- scroll down and select "source; Repository URL, Revision, Path.
+
+ ```
+ | Field              | Value                                                                            |
+| ------------------ | -------------------------------------------------------------------------------- |
+| **Repository URL** | `https://github.com/sammyCHY/Mini_Project-Introduction_to_GitOps_and_ArgoCD.git` |
+| **Revision**       | `main`                                                                           |
+| **Path**           | `argocd-example-apps/guestbook`                                                  |
+
+| Field           | Value                            |
+| --------------- | -------------------------------- |
+| **Cluster URL** | `https://kubernetes.default.svc` |
+| **Namespace**   | `default`                        |
+
+Final organize structure 
+
+GENERAL
+├── Application Name
+├── Project Name
+└── Sync Policy
+
+⬇ Scroll down
+
+SOURCE
+├── Repository URL
+├── Revision
+└── Path
+
+⬇ Scroll down
+
+DESTINATION
+├── Cluster URL
+└── Namespace
+```
 
 ### Lesson 1.3: ArgoCD Architecture: Understanding Core Components
 
@@ -290,11 +333,46 @@ The Image below shows the access into the ArgoCD's platform.
 
 I have to clone the public git repository for this project   `https://github.com/argoproj/argocd-example-apps`
 
+My Repository structural definition
+
+```
+Mini_Project-Introduction_to_GitOps_and_ArgoCD
+│
+├── argocd-example-apps
+│   ├── applicationset
+│   ├── apps
+│   ├── blue-green
+│   ├── guestbook   ←⭐⭐⭐⭐ This is the one we'll use
+│   ├── helm-guestbook
+│   ├── jsonnet-guestbook
+│   ├── kustomize-guestbook
+│   ├── ...
+│
+├── image
+└── README.md
+
+
+| Section              | Value                            | Status |
+| -------------------- | -------------------------------- | ------ |
+| **Application Name** | guestbook                        | ✅      |
+| **Project**          | default                          | ✅      |
+| **Repository URL**   | Your GitHub repository           | ✅      |
+| **Revision**         | main                             | ✅      |
+| **Path**             | `argocd-example-apps/guestbook`  | ✅      |
+| **Cluster URL**      | `https://kubernetes.default.svc` | ✅      |
+| **Namespace**        | default                          | ✅      |
+
+```
+
 
 4. **Monitor Synchronization:**
 
     - Observer how ArgoCD syncs the desired state from the Git repository to the EKS Cluster.
 
+    ![The Image here show the monitoring synchronization ](image/argocd-sync.png)
+
+
+ ![The Image here show the namespace argocd running in the pods ](image/argocd-ns-pods-running.png)
 
 ## Additional Resources
 
